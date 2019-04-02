@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+
+
+input[type=text], input[type=password] {
+    width: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button {
+
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px ;
+    margin: 20px;
+    border: none;
+    cursor: pointer;
+    width: 50%;
+    border-radius: 40%;
+}
+label,h2{
+color: #FFFFFF;
+}
+
+table{
+  width:50%;
+}
+button:hover {
+  
+    opacity: 0.8;
+}
+
+img.avatar {
+    width: 5%;
+    border-radius: 5%;
+}
+
+.container {
+    float: left;
+    padding: 16px;
+}
+
+span.psw {
+    float: left;
+    padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 100px) {
+    span.psw {
+       display: block;
+       float: none;
+    }
+    .cancelbtn {
+       width: 50%;
+    }
+}
+</style>
+
+</head>
+<body background="login.jpeg">
+  <img src="logo.png"  class="avatar"> 
+  <font size="7" color="#FF4500">Syracuse University</font><br><br>
+
+  <font size="6" color="white">Verify Student Academic Records</font>
+   
+     <br><br><br><br>
+
+<form id="form_id" method="POST" name="myform" onsubmit="validate()">
+
+  <div class="container"> 
+
+    
+    <label for="uname"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="username" id="username" required>
+    <br>
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="password" id="password" required>
+
+    <button type="submit" id="submit" ">Login</button> <br>
+
+    
+  </div>
+  <br>
+</form>
+
+
+
+</body>
+<script type="text/javascript">
+var attempt = 3; // Variable to count number of attempts.
+// Below function Executes on click of login button.
+var username;
+var password;
+function validate(){
+username = document.getElementById("username").value;
+password = document.getElementById("password").value;
+if ( (username == "admin" && password == "admin") || (username == "student" && password == "student") ){
+alert ("Login successfully");
+
+var loginform = document.getElementById("form_id");
+if(username == "admin"){
+  loginform.action = "http://localhost:8087/file.js";
+}else{
+  loginform.action = "http://localhost:8080/student.js";
+}
+
+return true;
+}
+else{
+attempt --;// Decrementing by one.
+alert("You have left "+attempt+" attempt;");
+// Disabling fields after 3 attempts.
+if( attempt == 0){
+document.getElementById("username").disabled = true;
+document.getElementById("password").disabled = true;
+document.getElementById("submit").disabled = true;
+return false;
+}
+}
+}
+</script>
+</html>
